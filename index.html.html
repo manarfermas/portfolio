@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Manar Fermas — STEAM Educator, Software Engineer & Training Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ===================== RESET & BASE ===================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+:root{
+  --bg:#08090d;
+  --bg2:#0f1117;
+  --bg3:#161820;
+  --surface:#1a1c25;
+  --surface2:#20222d;
+  --border:#ffffff0f;
+  --border2:#ffffff18;
+  --text:#f0f1f5;
+  --text2:#9fa3b5;
+  --text3:#666a80;
+  --accent:#4f8ef7;
+  --accent2:#7c6aff;
+  --accent3:#00d4aa;
+  --gold:#f5c842;
+  --red:#ff4f6a;
+  --glow:0 0 60px #4f8ef720;
+  --radius:16px;
+  --radius2:24px;
+  --shadow:0 8px 40px #0008;
+  --ff-head:'Playfair Display',Georgia,serif;
+  --ff-body:'DM Sans',sans-serif;
+  --ff-mono:'DM Mono',monospace;
+  --nav-h:68px;
+  --transition:0.35s cubic-bezier(.22,.68,0,1.2);
+}
+[data-theme="light"]{
+  --bg:#f4f5f8;
+  --bg2:#eceef3;
+  --bg3:#e4e6ed;
+  --surface:#ffffff;
+  --surface2:#f8f9fb;
+  --border:#00000010;
+  --border2:#00000018;
+  --text:#0d0e14;
+  --text2:#4a4f66;
+  --text3:#8a8fa8;
+  --shadow:0 8px 40px #0001;
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--ff-body);
+  font-weight:400;
+  line-height:1.65;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent);color:#fff}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ===================== SCROLLBAR ===================== */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:10px}
+
+/* ===================== NOISE OVERLAY ===================== */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1000;opacity:0.5;
+}
+
+/* ===================== NAV ===================== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:var(--nav-h);
+  display:flex;align-items:center;
+  padding:0 clamp(1rem,4vw,3rem);
+  backdrop-filter:blur(20px) saturate(180%);
+  background:var(--bg)cc;
+  border-bottom:1px solid var(--border);
+  transition:background 0.3s;
+}
+.nav-inner{
+  width:100%;max-width:1400px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+}
+.nav-logo{
+  font-family:var(--ff-head);font-weight:800;font-size:1.15rem;
+  letter-spacing:-0.02em;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.nav-links{
+  display:flex;align-items:center;gap:0.25rem;list-style:none;
+}
+.nav-links a{
+  font-size:0.82rem;font-weight:500;letter-spacing:0.01em;
+  padding:0.45rem 0.85rem;
+  border-radius:8px;
+  color:var(--text2);
+  transition:color 0.2s,background 0.2s;
+}
+.nav-links a:hover{color:var(--text);background:var(--surface)}
+.nav-actions{display:flex;gap:0.6rem;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.55rem 1.2rem;
+  border-radius:10px;
+  font-family:var(--ff-body);font-weight:500;font-size:0.85rem;
+  cursor:pointer;border:none;transition:all 0.2s;
+  white-space:nowrap;
+}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-ghost:hover{background:var(--surface);color:var(--text);border-color:var(--border2)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;box-shadow:0 0 24px #4f8ef730;
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 0 36px #4f8ef750}
+.btn-accent3{background:var(--accent3);color:#000;font-weight:600}
+.btn-accent3:hover{opacity:0.9;transform:translateY(-1px)}
+#theme-toggle{
+  background:var(--surface);border:1px solid var(--border2);
+  color:var(--text2);width:38px;height:38px;
+  border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all 0.2s;
+}
+#theme-toggle:hover{background:var(--surface2);color:var(--text)}
+.hamburger{display:none;background:none;border:1px solid var(--border2);
+  border-radius:8px;width:38px;height:38px;cursor:pointer;
+  color:var(--text2);font-size:1.2rem;align-items:center;justify-content:center;
+}
+.mobile-nav{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:899;
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:1rem;
+}
+.mobile-nav.open{display:block}
+.mobile-nav ul{list-style:none;display:flex;flex-direction:column;gap:0.25rem}
+.mobile-nav a{display:block;padding:0.7rem 1rem;border-radius:10px;font-weight:500;color:var(--text2)}
+.mobile-nav a:hover{background:var(--surface);color:var(--text)}
+
+/* ===================== SECTIONS ===================== */
+section{padding:clamp(4rem,8vw,8rem) clamp(1.5rem,5vw,3rem)}
+.container{max-width:1280px;margin:0 auto}
+.section-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  font-family:var(--ff-mono);
+  color:var(--accent);
+  background:var(--accent)12;
+  border:1px solid var(--accent)30;
+  padding:0.3rem 0.9rem;border-radius:100px;
+  margin-bottom:1.5rem;
+}
+.section-title{
+  font-family:var(--ff-head);font-weight:700;
+  font-size:clamp(2rem,4.5vw,3.2rem);
+  line-height:1.15;letter-spacing:-0.01em;
+  margin-bottom:1rem;
+}
+.section-sub{
+  font-size:1.05rem;color:var(--text2);
+  max-width:560px;line-height:1.7;
+}
+
+/* ===================== HERO ===================== */
+#hero{
+  min-height:100vh;padding-top:calc(var(--nav-h) + 3rem);
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 60% 30%,#4f8ef712,transparent),
+             radial-gradient(ellipse 60% 40% at 10% 80%,#7c6aff0a,transparent);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000 30%,transparent 100%);
+}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:1280px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+  padding:0 clamp(1.5rem,5vw,3rem);
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:100px;padding:0.4rem 1rem 0.4rem 0.4rem;
+  font-size:0.78rem;font-weight:500;color:var(--text2);
+  margin-bottom:1.8rem;
+}
+.hero-badge .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent3);
+  box-shadow:0 0 8px var(--accent3);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.9)}}
+.hero-title{
+  font-family:var(--ff-head);font-weight:700;
+  font-size:clamp(2.4rem,5vw,4rem);
+  line-height:1.15;letter-spacing:-0.01em;
+  margin-bottom:1.5rem;
+}
+.hero-title .grad{
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 50%,var(--accent3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:1.1rem;color:var(--text2);line-height:1.75;
+  max-width:500px;margin-bottom:2.5rem;
+}
+.hero-btns{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.hero-social{display:flex;gap:0.6rem}
+.social-btn{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--surface);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:var(--text2);
+  transition:all 0.2s;
+}
+.social-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-2px)}
+.hero-visual{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.hero-card{
+  width:100%;max-width:420px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:var(--radius2);
+  padding:2rem;
+  position:relative;
+  box-shadow:var(--shadow);
+}
+.hero-card::before{
+  content:'';position:absolute;inset:-1px;
+  border-radius:calc(var(--radius2) + 1px);
+  background:linear-gradient(135deg,var(--accent)20,transparent 50%,var(--accent2)15);
+  z-index:-1;
+}
+.avatar-ring{
+  width:90px;height:90px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.2rem;font-weight:800;
+  font-family:var(--ff-head);color:#fff;
+  margin:0 auto 1.5rem;
+  box-shadow:0 0 40px var(--accent)40;
+}
+.hero-card-name{
+  font-family:var(--ff-head);font-weight:800;font-size:1.3rem;
+  text-align:center;letter-spacing:-0.02em;margin-bottom:0.3rem;
+}
+.hero-card-title{
+  text-align:center;font-size:0.82rem;color:var(--text2);
+  font-weight:500;margin-bottom:1.5rem;
+}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0.75rem;border-top:1px solid var(--border);padding-top:1.5rem;
+}
+.hero-stat-num{
+  font-family:var(--ff-head);font-weight:800;font-size:1.5rem;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;line-height:1;margin-bottom:0.25rem;
+}
+.hero-stat-label{font-size:0.7rem;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:0.05em}
+.hero-langs{
+  display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:1.25rem;
+  padding-top:1.25rem;border-top:1px solid var(--border);
+}
+.lang-pill{
+  font-size:0.7rem;font-weight:600;
+  padding:0.25rem 0.65rem;border-radius:6px;
+  font-family:var(--ff-mono);
+}
+.lang-a{background:#4f8ef718;color:var(--accent)}
+.lang-e{background:#00d4aa18;color:var(--accent3)}
+.lang-f{background:#7c6aff18;color:var(--accent2)}
+.lang-g{background:#f5c84218;color:var(--gold)}
+.hero-orbit{
+  position:absolute;width:500px;height:500px;
+  border-radius:50%;border:1px dashed var(--border2);
+  animation:spin 30s linear infinite;
+  pointer-events:none;
+}
+.hero-orbit-dot{
+  position:absolute;width:10px;height:10px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 10px var(--accent);
+  top:-5px;left:calc(50% - 5px);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===================== ABOUT ===================== */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-highlights{margin-top:2rem;display:flex;flex-direction:column;gap:0.75rem}
+.about-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1rem 1.25rem;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  transition:border-color 0.2s,transform 0.2s;
+}
+.about-item:hover{border-color:var(--accent)50;transform:translateX(4px)}
+.about-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent)20,var(--accent2)20);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.about-item-title{font-weight:600;font-size:0.92rem;margin-bottom:0.2rem}
+.about-item-desc{font-size:0.82rem;color:var(--text2)}
+.about-right{position:sticky;top:calc(var(--nav-h) + 2rem)}
+.about-quote{
+  background:linear-gradient(135deg,var(--surface),var(--surface2));
+  border:1px solid var(--border2);
+  border-left:3px solid var(--accent);
+  border-radius:var(--radius);
+  padding:2rem;margin-bottom:2rem;
+}
+.about-quote p{font-size:1.05rem;line-height:1.8;color:var(--text2);font-style:italic}
+.about-quote cite{
+  display:block;margin-top:1rem;font-size:0.8rem;
+  color:var(--accent);font-family:var(--ff-mono);font-style:normal;
+}
+.about-details{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.detail-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:1rem;text-align:center;
+}
+.detail-card .icon{font-size:1.5rem;margin-bottom:0.5rem}
+.detail-card .label{font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--ff-mono)}
+.detail-card .value{font-size:0.88rem;font-weight:600;color:var(--text);margin-top:0.2rem}
+
+/* ===================== IMPACT ===================== */
+#impact{
+  background:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 100%);
+  text-align:center;
+}
+.impact-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1.5rem;margin-top:4rem;
+}
+.impact-card{
+  padding:2.5rem 1.5rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius2);
+  position:relative;overflow:hidden;
+  transition:transform 0.3s,border-color 0.3s;
+}
+.impact-card:hover{transform:translateY(-6px);border-color:var(--accent)50}
+.impact-card::before{
+  content:'';position:absolute;top:-60%;left:-60%;
+  width:200%;height:200%;
+  background:radial-gradient(circle,var(--accent)06,transparent 60%);
+  opacity:0;transition:opacity 0.3s;
+}
+.impact-card:hover::before{opacity:1}
+.impact-num{
+  font-family:var(--ff-head);font-weight:800;
+  font-size:3rem;line-height:1;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:0.5rem;
+}
+.impact-label{font-size:0.85rem;color:var(--text2);font-weight:500}
+.impact-icon{font-size:1.8rem;margin-bottom:1rem}
+
+/* ===================== EXPERTISE ===================== */
+#expertise{background:var(--bg3)}
+.expertise-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.expertise-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:2rem;
+  position:relative;overflow:hidden;
+  transition:all 0.3s;
+  cursor:default;
+}
+.expertise-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent)40;
+  box-shadow:0 20px 60px #0005,0 0 0 1px var(--accent)20;
+}
+.expertise-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
+  transform:scaleX(0);transform-origin:left;transition:transform 0.3s;
+}
+.expertise-card:hover::after{transform:scaleX(1)}
+.exp-icon{
+  width:56px;height:56px;border-radius:16px;
+  background:linear-gradient(135deg,var(--accent)20,var(--accent2)10);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;margin-bottom:1.5rem;
+}
+.exp-title{
+  font-family:var(--ff-head);font-weight:700;font-size:1.15rem;
+  margin-bottom:0.6rem;letter-spacing:-0.02em;
+}
+.exp-desc{font-size:0.88rem;color:var(--text2);line-height:1.7;margin-bottom:1.25rem}
+.exp-tools{display:flex;gap:0.4rem;flex-wrap:wrap}
+.tool-tag{
+  font-size:0.7rem;font-weight:600;font-family:var(--ff-mono);
+  padding:0.25rem 0.6rem;border-radius:6px;
+  background:var(--bg);border:1px solid var(--border2);color:var(--text2);
+  transition:all 0.2s;
+}
+.expertise-card:hover .tool-tag{border-color:var(--accent)30;color:var(--accent)}
+
+/* ===================== EXPERIENCE ===================== */
+#experience{background:var(--bg2)}
+.timeline{max-width:800px;margin:3rem auto 0;position:relative}
+.timeline::before{
+  content:'';position:absolute;left:24px;top:0;bottom:0;
+  width:1px;background:linear-gradient(to bottom,transparent,var(--accent),transparent);
+}
+.timeline-item{
+  display:flex;gap:2rem;margin-bottom:2.5rem;
+  position:relative;
+}
+.timeline-dot{
+  width:48px;height:48px;border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+  box-shadow:0 0 20px var(--accent)30;
+  position:relative;z-index:1;
+}
+.timeline-body{
+  flex:1;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:1.75rem;
+  transition:border-color 0.2s;
+}
+.timeline-body:hover{border-color:var(--accent)40}
+.timeline-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.75rem;flex-wrap:wrap}
+.timeline-role{font-family:var(--ff-head);font-weight:700;font-size:1.1rem;letter-spacing:-0.02em}
+.timeline-period{
+  font-size:0.72rem;font-family:var(--ff-mono);
+  color:var(--accent);background:var(--accent)12;
+  padding:0.25rem 0.65rem;border-radius:6px;white-space:nowrap;
+}
+.timeline-org{
+  font-size:0.88rem;color:var(--accent2);font-weight:600;margin-bottom:1rem;
+}
+.timeline-list{
+  list-style:none;display:flex;flex-direction:column;gap:0.4rem;
+}
+.timeline-list li{
+  font-size:0.85rem;color:var(--text2);
+  display:flex;align-items:flex-start;gap:0.6rem;
+}
+.timeline-list li::before{
+  content:'→';color:var(--accent3);font-size:0.8rem;margin-top:0.1rem;flex-shrink:0;
+}
+
+/* ===================== PROJECTS ===================== */
+#projects{background:var(--bg3)}
+.projects-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.project-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius2);overflow:hidden;
+  transition:all 0.3s;
+  position:relative;
+}
+.project-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 30px 80px #0008,0 0 0 1px var(--accent)20;
+}
+.project-thumb{
+  height:200px;
+  background:linear-gradient(135deg,var(--surface2),var(--bg));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  font-size:3.5rem;
+  border-bottom:1px solid var(--border);
+}
+.project-thumb::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,var(--accent)10,transparent 70%);
+}
+.project-thumb-text{position:relative;z-index:1;opacity:0.9}
+.project-body{padding:1.75rem}
+.project-category{
+  font-size:0.7rem;font-family:var(--ff-mono);font-weight:600;
+  color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;
+  margin-bottom:0.75rem;
+}
+.project-title{
+  font-family:var(--ff-head);font-weight:700;font-size:1.15rem;
+  letter-spacing:-0.02em;margin-bottom:0.75rem;
+}
+.project-desc{font-size:0.85rem;color:var(--text2);line-height:1.7;margin-bottom:1.25rem}
+.project-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.project-tag{
+  font-size:0.68rem;font-family:var(--ff-mono);font-weight:500;
+  background:var(--bg);border:1px solid var(--border2);
+  color:var(--text3);padding:0.2rem 0.55rem;border-radius:5px;
+}
+.project-media-placeholder{
+  background:var(--bg);border:1px dashed var(--border2);
+  border-radius:10px;padding:1rem;
+  text-align:center;font-size:0.78rem;color:var(--text3);
+}
+.project-link{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-size:0.82rem;font-weight:600;color:var(--accent);
+  font-family:var(--ff-mono);transition:gap 0.2s;
+}
+.project-link:hover{gap:0.7rem}
+
+/* ===================== GALLERY ===================== */
+#gallery{background:var(--bg)}
+.gallery-tabs{
+  display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2.5rem;
+}
+.gallery-tab{
+  font-size:0.78rem;font-weight:600;font-family:var(--ff-mono);
+  padding:0.4rem 1rem;border-radius:8px;
+  background:var(--surface);border:1px solid var(--border2);
+  color:var(--text2);cursor:pointer;transition:all 0.2s;
+}
+.gallery-tab.active,.gallery-tab:hover{
+  background:var(--accent);color:#fff;border-color:var(--accent);
+}
+.masonry{
+  columns:3 280px;gap:1rem;
+  column-fill:balance;
+}
+.masonry-item{
+  break-inside:avoid;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  margin-bottom:1rem;
+  transition:all 0.3s;
+}
+.masonry-item:hover{
+  transform:scale(1.02);border-color:var(--accent)40;
+}
+.masonry-placeholder{
+  height:var(--ph,200px);
+  background:linear-gradient(135deg,var(--surface2),var(--bg));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:0.75rem;color:var(--text3);font-size:0.82rem;
+  position:relative;overflow:hidden;
+}
+.masonry-placeholder::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,var(--accent)06,transparent 70%);
+}
+.masonry-placeholder .ph-icon{font-size:2rem;opacity:0.5}
+.masonry-caption{
+  padding:0.75rem 1rem;
+}
+.masonry-caption h4{font-size:0.85rem;font-weight:600;margin-bottom:0.2rem}
+.masonry-caption p{font-size:0.75rem;color:var(--text2)}
+.masonry-badge{
+  position:absolute;top:0.75rem;left:0.75rem;z-index:1;
+  font-size:0.65rem;font-weight:700;font-family:var(--ff-mono);
+  text-transform:uppercase;letter-spacing:0.08em;
+  background:#000a;backdrop-filter:blur(6px);
+  color:#fff;padding:0.25rem 0.6rem;border-radius:5px;
+}
+
+/* ===================== CERTIFICATIONS ===================== */
+#certifications{background:var(--bg2)}
+.certs-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.25rem;margin-top:3rem;
+}
+.cert-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:1.75rem;
+  transition:all 0.3s;position:relative;overflow:hidden;
+}
+.cert-card:hover{
+  transform:translateY(-4px);border-color:var(--gold)40;
+  box-shadow:0 20px 50px #0006;
+}
+.cert-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--accent));
+}
+.cert-icon{font-size:2rem;margin-bottom:1.25rem}
+.cert-name{font-family:var(--ff-head);font-weight:700;font-size:1rem;letter-spacing:-0.02em;margin-bottom:0.5rem}
+.cert-desc{font-size:0.82rem;color:var(--text2);line-height:1.6;margin-bottom:1.25rem}
+.cert-badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-size:0.68rem;font-family:var(--ff-mono);font-weight:600;
+  color:var(--gold);background:var(--gold)15;
+  padding:0.25rem 0.65rem;border-radius:6px;
+}
+.add-cert{
+  border:2px dashed var(--border2);background:transparent;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:0.75rem;min-height:180px;
+  cursor:pointer;color:var(--text3);transition:all 0.2s;
+}
+.add-cert:hover{border-color:var(--accent)50;color:var(--accent);background:var(--accent)06}
+.add-cert .plus{font-size:2rem}
+
+/* ===================== TESTIMONIALS ===================== */
+#testimonials{background:var(--bg3)}
+.testimonials-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.testi-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:2rem;
+  position:relative;transition:all 0.3s;
+}
+.testi-card:hover{transform:translateY(-4px);border-color:var(--accent)30}
+.testi-quote{
+  font-size:2.5rem;line-height:1;color:var(--accent);
+  font-family:Georgia,serif;margin-bottom:1rem;opacity:0.7;
+}
+.testi-text{font-size:0.9rem;color:var(--text2);line-height:1.8;margin-bottom:1.5rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:0.85rem}
+.testi-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1rem;color:#fff;flex-shrink:0;
+}
+.testi-name{font-weight:700;font-size:0.9rem}
+.testi-role{font-size:0.76rem;color:var(--text3);font-family:var(--ff-mono)}
+.testi-placeholder-note{
+  font-size:0.72rem;color:var(--text3);font-family:var(--ff-mono);
+  position:absolute;top:1rem;right:1rem;
+  background:var(--bg);border:1px solid var(--border);
+  padding:0.2rem 0.55rem;border-radius:5px;
+}
+
+/* ===================== SKILLS ===================== */
+#skills{background:var(--bg)}
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.skills-category{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:2rem;
+}
+.skills-cat-title{
+  font-family:var(--ff-head);font-weight:700;font-size:1.05rem;
+  letter-spacing:-0.02em;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.6rem;
+}
+.skills-cat-icon{font-size:1.2rem}
+.skills-cat-subtitle{font-size:0.78rem;color:var(--text3);font-family:var(--ff-mono);margin-bottom:1.5rem}
+.skill-item{margin-bottom:1rem}
+.skill-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem}
+.skill-name{font-size:0.85rem;font-weight:500;color:var(--text)}
+.skill-pct{font-size:0.72rem;font-family:var(--ff-mono);color:var(--text3)}
+.skill-bar{
+  height:4px;background:var(--bg);border-radius:100px;overflow:hidden;
+}
+.skill-fill{
+  height:100%;border-radius:100px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 1.2s cubic-bezier(.22,.68,0,1.2);
+}
+.skill-fill.animated{transform:scaleX(1)}
+
+/* ===================== RESUME ===================== */
+#resume{
+  background:linear-gradient(135deg,var(--bg2),var(--bg));
+  text-align:center;
+}
+.resume-inner{max-width:680px;margin:0 auto}
+.resume-inner .section-title{margin-bottom:1rem}
+.resume-inner .section-sub{margin:0 auto 2.5rem;max-width:500px}
+.resume-feature-list{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:0.75rem;margin-bottom:3rem;
+}
+.resume-feature{
+  display:flex;align-items:center;gap:0.5rem;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:10px;padding:0.55rem 1rem;
+  font-size:0.82rem;color:var(--text2);
+}
+.resume-feature .check{color:var(--accent3);font-weight:700}
+
+/* ===================== CONTACT ===================== */
+#contact{background:var(--bg3)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start}
+.contact-info-title{font-family:var(--ff-head);font-weight:700;font-size:1.4rem;letter-spacing:-0.03em;margin-bottom:1.5rem}
+.contact-links{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.contact-link{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.25rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);
+  transition:all 0.2s;
+}
+.contact-link:hover{border-color:var(--accent)50;transform:translateX(4px)}
+.contact-link-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent)20,var(--accent2)10);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+}
+.contact-link-label{font-size:0.7rem;color:var(--text3);font-family:var(--ff-mono);text-transform:uppercase;letter-spacing:0.08em}
+.contact-link-value{font-size:0.9rem;font-weight:500;color:var(--text);word-break:break-all}
+.contact-form{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:2.5rem;
+}
+.contact-form h3{font-family:var(--ff-head);font-weight:700;font-size:1.2rem;letter-spacing:-0.02em;margin-bottom:2rem}
+.form-group{margin-bottom:1.25rem}
+.form-label{
+  display:block;font-size:0.78rem;font-weight:600;
+  font-family:var(--ff-mono);color:var(--text2);
+  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;
+}
+.form-input,.form-textarea{
+  width:100%;
+  background:var(--bg);border:1px solid var(--border2);
+  border-radius:10px;
+  padding:0.85rem 1rem;
+  font-family:var(--ff-body);font-size:0.92rem;
+  color:var(--text);outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.form-input:focus,.form-textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent)15;
+}
+.form-textarea{resize:vertical;min-height:120px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* ===================== FOOTER ===================== */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:2.5rem clamp(1.5rem,5vw,3rem);
+  text-align:center;
+}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--ff-head);font-weight:800;font-size:1.1rem;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.footer-copy{font-size:0.8rem;color:var(--text3)}
+.footer-socials{display:flex;gap:0.6rem}
+
+/* ===================== UTILITIES & ANIMATIONS ===================== */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s}
+.fade-in.visible{opacity:1;transform:none}
+.stagger-1{transition-delay:0.1s}.stagger-2{transition-delay:0.2s}.stagger-3{transition-delay:0.3s}
+.stagger-4{transition-delay:0.4s}.stagger-5{transition-delay:0.5s}
+.divider{
+  height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);
+  margin:0;
+}
+.gradient-text{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.highlight{color:var(--accent3);font-weight:600}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:1024px){
+  .hero-content{grid-template-columns:1fr;text-align:center}
+  .hero-sub{margin:0 auto 2.5rem}
+  .hero-btns{justify-content:center}
+  .hero-social{justify-content:center}
+  .hero-visual{display:none}
+  .about-grid{grid-template-columns:1fr}
+  .about-right{position:static}
+  .contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-actions .btn-primary{display:none}
+  .hamburger{display:flex}
+  .masonry{columns:1}
+  .form-row{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr}
+  .about-details{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .section-title{font-size:clamp(1.7rem,6vw,2.2rem)}
+  .impact-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-stats{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">MF.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" title="Toggle theme">☀</button>
+      <a href="mailto:manarfermas17@gmail.com" class="btn btn-primary">Hire Me ↗</a>
+      <button class="hamburger" id="hamburger">☰</button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge fade-in">
+        <span class="dot"></span>
+        Available for International Opportunities
+      </div>
+      <h1 class="hero-title fade-in stagger-1">
+        <span class="grad">STEAM Educator,</span><br>
+        Software Engineer<br>
+        &amp; Training Manager
+      </h1>
+      <p class="hero-sub fade-in stagger-2">
+        Helping children and young learners develop future-ready skills through programming, robotics, electronics and innovation.
+      </p>
+      <div class="hero-btns fade-in stagger-3">
+        <a href="#projects" class="btn btn-primary">View Projects ↗</a>
+        <a href="#resume" class="btn btn-ghost">Download CV ↓</a>
+        <a href="#contact" class="btn btn-accent3">Contact Me</a>
+      </div>
+      <div class="hero-social fade-in stagger-4">
+        <a href="https://linkedin.com" class="social-btn" title="LinkedIn">in</a>
+        <a href="https://github.com" class="social-btn" title="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+        </a>
+        <a href="mailto:manarfermas17@gmail.com" class="social-btn" title="Email">✉</a>
+      </div>
+    </div>
+    <div class="hero-visual fade-in stagger-2">
+      <div class="hero-orbit">
+        <div class="hero-orbit-dot"></div>
+      </div>
+      <div class="hero-card">
+        <div class="avatar-ring">MF</div>
+        <div class="hero-card-name">Manar Fermas</div>
+        <div class="hero-card-title">STEAM Educator · Software Engineer · Training Manager</div>
+        <div class="hero-stats">
+          <div>
+            <span class="hero-stat-num" data-target="100">0</span>
+            <span class="hero-stat-label">Students</span>
+          </div>
+          <div>
+            <span class="hero-stat-num" data-target="20">0</span>
+            <span class="hero-stat-label">Projects</span>
+          </div>
+          <div>
+            <span class="hero-stat-num" data-target="4">0</span>
+            <span class="hero-stat-label">Languages</span>
+          </div>
+        </div>
+        <div class="hero-langs">
+          <span class="lang-pill lang-a">العربية</span>
+          <span class="lang-pill lang-e">English</span>
+          <span class="lang-pill lang-f">Français</span>
+          <span class="lang-pill lang-g">Deutsch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="section-tag fade-in">⬡ About Me</span>
+        <h2 class="section-title fade-in stagger-1">Empowering the Next Generation Through Technology</h2>
+        <p class="section-sub fade-in stagger-2" style="margin-bottom:1.5rem">
+          I'm <strong>Manar Fermas</strong>, a <span class="highlight">STEAM Educator, Software Engineer and Training Manager</span> from Algeria, passionate about transforming complex technology into engaging learning experiences for children and young learners.
+        </p>
+        <p style="font-size:0.92rem;color:var(--text2);line-height:1.8;margin-bottom:1.5rem" class="fade-in stagger-3">
+          Holding a <strong>Master's Degree in Software Engineering</strong> from the University of Constantine 2 Abdelhamid Mehri, I bridge the gap between advanced technical knowledge and effective pedagogy. My work spans <strong>robotics education, Arduino programming, STEAM curriculum design</strong>, and managing training programs that produce measurable impact.
+        </p>
+        <p style="font-size:0.92rem;color:var(--text2);line-height:1.8;margin-bottom:2rem" class="fade-in stagger-4">
+          Having taught over 100 students aged 7–17, I believe every child deserves access to quality technology education that prepares them for a rapidly evolving world. I am actively seeking international opportunities in <strong>UAE, Qatar, Europe and the United States</strong> to expand this impact globally.
+        </p>
+        <div class="about-highlights">
+          <div class="about-item fade-in">
+            <div class="about-icon">🎓</div>
+            <div>
+              <div class="about-item-title">Master's in Software Engineering</div>
+              <div class="about-item-desc">University of Constantine 2 Abdelhamid Mehri, Algeria</div>
+            </div>
+          </div>
+          <div class="about-item fade-in stagger-1">
+            <div class="about-icon">🤖</div>
+            <div>
+              <div class="about-item-title">Robotics & Arduino Education</div>
+              <div class="about-item-desc">Hands-on project-based learning for students aged 7–17</div>
+            </div>
+          </div>
+          <div class="about-item fade-in stagger-2">
+            <div class="about-icon">📋</div>
+            <div>
+              <div class="about-item-title">Training Program Management</div>
+              <div class="about-item-desc">Coordinating, marketing and optimizing educational programs</div>
+            </div>
+          </div>
+          <div class="about-item fade-in stagger-3">
+            <div class="about-icon">🌍</div>
+            <div>
+              <div class="about-item-title">Multilingual & International Mindset</div>
+              <div class="about-item-desc">Arabic · English · French · German — ready for global classrooms</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-quote fade-in">
+          <p>"Transforming Complex Technology Into Engaging Learning Experiences — making STEAM accessible, inspiring, and impactful for every learner."</p>
+          <cite>— Manar Fermas, STEAM Educator</cite>
+        </div>
+        <div class="about-details fade-in stagger-1">
+          <div class="detail-card">
+            <div class="icon">📍</div>
+            <div class="label">Location</div>
+            <div class="value">Constantine, Algeria</div>
+          </div>
+          <div class="detail-card">
+            <div class="icon">🎓</div>
+            <div class="label">Degree</div>
+            <div class="value">MSc Software Engineering</div>
+          </div>
+          <div class="detail-card">
+            <div class="icon">📧</div>
+            <div class="label">Email</div>
+            <div class="value" style="font-size:0.78rem">manarfermas17@gmail.com</div>
+          </div>
+          <div class="detail-card">
+            <div class="icon">📱</div>
+            <div class="label">Phone</div>
+            <div class="value">+213 658 902 586</div>
+          </div>
+          <div class="detail-card">
+            <div class="icon">💼</div>
+            <div class="label">Status</div>
+            <div class="value" style="color:var(--accent3)">Open to Work</div>
+          </div>
+          <div class="detail-card">
+            <div class="icon">✈️</div>
+            <div class="label">Target</div>
+            <div class="value">UAE · Qatar · EU · US</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="container">
+    <div style="text-align:center">
+      <span class="section-tag fade-in">📊 Impact & Numbers</span>
+      <h2 class="section-title fade-in stagger-1">Real Impact, Real Results</h2>
+      <p class="section-sub fade-in stagger-2" style="margin:0 auto">
+        Numbers that reflect years of dedication to technology education and training management.
+      </p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card fade-in">
+        <div class="impact-icon">👩‍💻</div>
+        <div class="impact-num counter" data-target="100">0</div>
+        <div class="impact-label">Students Taught</div>
+      </div>
+      <div class="impact-card fade-in stagger-1">
+        <div class="impact-icon">👥</div>
+        <div class="impact-num counter" data-target="10">0</div>
+        <div class="impact-label">Groups Managed</div>
+      </div>
+      <div class="impact-card fade-in stagger-2">
+        <div class="impact-icon">🛠️</div>
+        <div class="impact-num counter" data-target="20">0</div>
+        <div class="impact-label">Tech Projects Guided</div>
+      </div>
+      <div class="impact-card fade-in stagger-3">
+        <div class="impact-icon">📅</div>
+        <div class="impact-num counter" data-target="2">0</div>
+        <div class="impact-label">Years in Education</div>
+      </div>
+      <div class="impact-card fade-in stagger-4">
+        <div class="impact-icon">🌐</div>
+        <div class="impact-num counter" data-target="4">0</div>
+        <div class="impact-label">Languages Spoken</div>
+      </div>
+      <div class="impact-card fade-in stagger-5">
+        <div class="impact-icon">🎓</div>
+        <div class="impact-num">∞</div>
+        <div class="impact-label">Passion for Education</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="container">
+    <span class="section-tag fade-in">⚙️ Teaching Expertise</span>
+    <h2 class="section-title fade-in stagger-1">What I Teach</h2>
+    <p class="section-sub fade-in stagger-2">Specialized in cutting-edge STEAM disciplines that prepare students for tomorrow's challenges.</p>
+    <div class="expertise-grid">
+
+      <div class="expertise-card fade-in">
+        <div class="exp-icon">💻</div>
+        <div class="exp-title">Programming Education</div>
+        <p class="exp-desc">Teaching coding through visual and text-based programming languages, making complex concepts accessible to all ages. From block-based to Python, I tailor the approach to each student's level.</p>
+        <div class="exp-tools">
+          <span class="tool-tag">PictoBlox</span>
+          <span class="tool-tag">Python</span>
+          <span class="tool-tag">Visual Programming</span>
+          <span class="tool-tag">Algorithms</span>
+        </div>
+      </div>
+
+      <div class="expertise-card fade-in stagger-1">
+        <div class="exp-icon">🤖</div>
+        <div class="exp-title">Robotics Education</div>
+        <p class="exp-desc">Hands-on robotics learning using sensors, actuators and project-based learning methodologies. Students build real working robots while learning engineering thinking and problem-solving.</p>
+        <div class="exp-tools">
+          <span class="tool-tag">Arduino</span>
+          <span class="tool-tag">Sensors</span>
+          <span class="tool-tag">Actuators</span>
+          <span class="tool-tag">PBL</span>
+        </div>
+      </div>
+
+      <div class="expertise-card fade-in stagger-2">
+        <div class="exp-icon">⚡</div>
+        <div class="exp-title">Arduino & Electronics</div>
+        <p class="exp-desc">Teaching practical electronics and smart systems through real project construction. Students gain deep understanding of hardware-software integration through guided hands-on builds.</p>
+        <div class="exp-tools">
+          <span class="tool-tag">Arduino</span>
+          <span class="tool-tag">Servo Motors</span>
+          <span class="tool-tag">LCD</span>
+          <span class="tool-tag">Ultrasonic</span>
+          <span class="tool-tag">IR Sensors</span>
+          <span class="tool-tag">DHT11</span>
+          <span class="tool-tag">LDR</span>
+          <span class="tool-tag">H-Bridge</span>
+        </div>
+      </div>
+
+      <div class="expertise-card fade-in stagger-3">
+        <div class="exp-icon">🔬</div>
+        <div class="exp-title">STEAM Education</div>
+        <p class="exp-desc">Integrating Science, Technology, Engineering, Arts and Mathematics into engaging, interdisciplinary learning experiences. Curriculum designed to develop creativity, critical thinking, and innovation.</p>
+        <div class="exp-tools">
+          <span class="tool-tag">Science</span>
+          <span class="tool-tag">Technology</span>
+          <span class="tool-tag">Engineering</span>
+          <span class="tool-tag">Arts</span>
+          <span class="tool-tag">Mathematics</span>
+        </div>
+      </div>
+
+      <div class="expertise-card fade-in stagger-4">
+        <div class="exp-icon">🎯</div>
+        <div class="exp-title">Curriculum Design</div>
+        <p class="exp-desc">Developing structured, age-appropriate curricula that align learning objectives with hands-on activities. Every curriculum I design incorporates modern pedagogy and measurable outcomes.</p>
+        <div class="exp-tools">
+          <span class="tool-tag">Learning Design</span>
+          <span class="tool-tag">Assessment</span>
+          <span class="tool-tag">Standards</span>
+          <span class="tool-tag">PBL</span>
+        </div>
+      </div>
+
+      <div class="expertise-card fade-in stagger-5">
+        <div class="exp-icon">🤖🧠</div>
+        <div class="exp-title">AI & EdTech</div>
+        <p class="exp-desc">Delivering AI literacy workshops and introducing modern educational technology tools that prepare students and educators for an AI-driven future.</p>
+        <div class="exp-tools">
+          <span class="tool-tag">AI Literacy</span>
+          <span class="tool-tag">AI Tools</span>
+          <span class="tool-tag">EdTech</span>
+          <span class="tool-tag">Workshops</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <span class="section-tag fade-in">🏢 Professional Experience</span>
+    <h2 class="section-title fade-in stagger-1">Career Timeline</h2>
+    <p class="section-sub fade-in stagger-2">A track record of building educational programs that create real-world impact.</p>
+    <div class="timeline">
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot">🏢</div>
+        <div class="timeline-body">
+          <div class="timeline-header">
+            <div class="timeline-role">Training Manager</div>
+            <div class="timeline-period">2024 – Present</div>
+          </div>
+          <div class="timeline-org">Tidis Tech</div>
+          <ul class="timeline-list">
+            <li>Managing and coordinating full-cycle training programs from planning to delivery</li>
+            <li>Designing marketing campaigns for training offerings using Facebook Ads</li>
+            <li>Organizing training schedules, resources and instructor assignments</li>
+            <li>Developing curriculum plans and ensuring educational quality standards</li>
+            <li>Coordinating with stakeholders and educational partners</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in stagger-1">
+        <div class="timeline-dot">🤖</div>
+        <div class="timeline-body">
+          <div class="timeline-header">
+            <div class="timeline-role">STEAM, Programming & Robotics Instructor</div>
+            <div class="timeline-period">2024 – Present</div>
+          </div>
+          <div class="timeline-org">YETI Club</div>
+          <ul class="timeline-list">
+            <li>Teaching children aged 7–17 in programming, robotics and STEAM disciplines</li>
+            <li>Designing and delivering hands-on Arduino and electronics projects</li>
+            <li>Creating age-appropriate curriculum that scales from beginner to advanced</li>
+            <li>Mentoring students through technology project development and presentation</li>
+            <li>Supervising student projects in local and national competitions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in stagger-2">
+        <div class="timeline-dot">🇺🇸</div>
+        <div class="timeline-body">
+          <div class="timeline-header">
+            <div class="timeline-role">Volunteer STEAM Instructor</div>
+            <div class="timeline-period">Volunteer</div>
+          </div>
+          <div class="timeline-org">American Corner Constantine</div>
+          <ul class="timeline-list">
+            <li>Teaching algorithmic thinking and logical reasoning to young learners</li>
+            <li>Introducing introductory programming concepts and computational thinking</li>
+            <li>Facilitating interactive STEAM activities in community learning events</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in stagger-3">
+        <div class="timeline-dot">🧠</div>
+        <div class="timeline-body">
+          <div class="timeline-header">
+            <div class="timeline-role">AI Workshop Presenter</div>
+            <div class="timeline-period">Workshop Series</div>
+          </div>
+          <div class="timeline-org">Educational Events & Institutions</div>
+          <ul class="timeline-list">
+            <li>Delivering engaging AI literacy workshops to diverse audiences</li>
+            <li>Introducing AI tools and their educational applications</li>
+            <li>Raising awareness of educational technology trends and opportunities</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <span class="section-tag fade-in">🚀 Projects Portfolio</span>
+    <h2 class="section-title fade-in stagger-1">Selected Work</h2>
+    <p class="section-sub fade-in stagger-2">Engineering and educational projects that demonstrate technical depth and creative problem-solving.</p>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-thumb">
+          <span class="project-thumb-text">🏥📡</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">Master's Thesis · IoT</div>
+          <div class="project-title">IoT Patient Monitoring System</div>
+          <p class="project-desc">Designed and implemented a real-time patient monitoring system using IoT architecture for data collection, processing and transmission. Includes sensor integration, data pipeline design and system architecture documentation.</p>
+          <div class="project-tags">
+            <span class="project-tag">IoT</span>
+            <span class="project-tag">Software Engineering</span>
+            <span class="project-tag">System Architecture</span>
+            <span class="project-tag">Real-time Data</span>
+          </div>
+          <a href="#" class="project-link">View Details →</a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in stagger-1">
+        <div class="project-thumb">
+          <span class="project-thumb-text">🔨🌐</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">Web Development · Platform</div>
+          <div class="project-title">Craftsmen Hiring Platform</div>
+          <p class="project-desc">Full-stack web platform connecting customers with local craftsmen. Features user profiles, service listings, booking system and review management. Built with modern web technologies and relational database design.</p>
+          <div class="project-tags">
+            <span class="project-tag">Web Development</span>
+            <span class="project-tag">Database Design</span>
+            <span class="project-tag">Full Stack</span>
+            <span class="project-tag">UX Design</span>
+          </div>
+          <a href="#" class="project-link">View Details →</a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in stagger-2">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#4f8ef715,#7c6aff10)">
+          <span class="project-thumb-text">🤖⚡</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">Education · Robotics</div>
+          <div class="project-title">Educational Robotics Projects</div>
+          <p class="project-desc">A curated collection of robotics and Arduino projects developed with students at YETI Club. Includes line-following robots, obstacle avoidance systems, and sensor-based automation projects designed for ages 10+.</p>
+          <div class="project-tags">
+            <span class="project-tag">Arduino</span>
+            <span class="project-tag">Sensors</span>
+            <span class="project-tag">Student Projects</span>
+            <span class="project-tag">STEAM</span>
+          </div>
+          <div class="project-media-placeholder">
+            📸 Gallery & video showcase coming soon
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in stagger-3">
+        <div class="project-thumb">
+          <span class="project-thumb-text">🏠💡</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">Arduino · Automation</div>
+          <div class="project-title">Smart Home Educational Project</div>
+          <p class="project-desc">Arduino-based smart home system built as an educational showcase. Features automated lighting, temperature monitoring, and remote control capabilities. Used as a capstone project for advanced students.</p>
+          <div class="project-tags">
+            <span class="project-tag">Arduino</span>
+            <span class="project-tag">DHT11</span>
+            <span class="project-tag">LCD</span>
+            <span class="project-tag">Automation</span>
+            <span class="project-tag">IoT</span>
+          </div>
+          <a href="#" class="project-link">View Details →</a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in stagger-4">
+        <div class="project-thumb">
+          <span class="project-thumb-text">🎯📱</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">Marketing · Design</div>
+          <div class="project-title">Landing Page Design Projects</div>
+          <p class="project-desc">High-converting landing pages created for product marketing campaigns. Focused on conversion optimization, visual hierarchy and persuasive copywriting. Integrated with Facebook Ads campaigns for maximum ROI.</p>
+          <div class="project-tags">
+            <span class="project-tag">HTML/CSS</span>
+            <span class="project-tag">UI Design</span>
+            <span class="project-tag">Facebook Ads</span>
+            <span class="project-tag">Conversion</span>
+          </div>
+          <a href="#" class="project-link">View Details →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <span class="section-tag fade-in">📸 STEAM Gallery</span>
+    <h2 class="section-title fade-in stagger-1">Classroom in Action</h2>
+    <p class="section-sub fade-in stagger-2">Behind-the-scenes moments from workshops, robotics labs and student presentations.</p>
+    <div class="gallery-tabs fade-in">
+      <button class="gallery-tab active" data-cat="all">All</button>
+      <button class="gallery-tab" data-cat="classroom">Classroom</button>
+      <button class="gallery-tab" data-cat="robotics">Robotics</button>
+      <button class="gallery-tab" data-cat="arduino">Arduino</button>
+      <button class="gallery-tab" data-cat="presentations">Presentations</button>
+      <button class="gallery-tab" data-cat="events">Events</button>
+      <button class="gallery-tab" data-cat="training">Teacher Training</button>
+    </div>
+    <div class="masonry fade-in stagger-1">
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:260px">
+          <div class="masonry-badge">Robotics</div>
+          <div class="ph-icon">🤖</div>
+          <div>Robotics Workshop Session</div>
+        </div>
+        <div class="masonry-caption"><h4>Arduino Line Follower Build</h4><p>YETI Club · 2024</p></div>
+      </div>
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:200px">
+          <div class="masonry-badge">Classroom</div>
+          <div class="ph-icon">💻</div>
+          <div>Programming Class</div>
+        </div>
+        <div class="masonry-caption"><h4>Python Intro Session</h4><p>YETI Club · 2024</p></div>
+      </div>
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:320px">
+          <div class="masonry-badge">Arduino</div>
+          <div class="ph-icon">⚡</div>
+          <div>Smart Home Demo</div>
+        </div>
+        <div class="masonry-caption"><h4>Smart Home Project Showcase</h4><p>YETI Club · 2024</p></div>
+      </div>
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:220px">
+          <div class="masonry-badge">Presentations</div>
+          <div class="ph-icon">🎤</div>
+          <div>Student Presentations</div>
+        </div>
+        <div class="masonry-caption"><h4>End-of-Term Project Demos</h4><p>YETI Club · 2024</p></div>
+      </div>
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:180px">
+          <div class="masonry-badge">Events</div>
+          <div class="ph-icon">🏆</div>
+          <div>Competition Event</div>
+        </div>
+        <div class="masonry-caption"><h4>STEAM Innovation Competition</h4><p>Constantine · 2024</p></div>
+      </div>
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:280px">
+          <div class="masonry-badge">Training</div>
+          <div class="ph-icon">👩‍🏫</div>
+          <div>Teacher Training Session</div>
+        </div>
+        <div class="masonry-caption"><h4>STEAM Teacher Development</h4><p>Workshop · 2024</p></div>
+      </div>
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:240px">
+          <div class="masonry-badge">Classroom</div>
+          <div class="ph-icon">🔬</div>
+          <div>STEAM Activity</div>
+        </div>
+        <div class="masonry-caption"><h4>Science Integration Workshop</h4><p>American Corner · 2024</p></div>
+      </div>
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:200px">
+          <div class="masonry-badge">Arduino</div>
+          <div class="ph-icon">🔧</div>
+          <div>Circuit Building</div>
+        </div>
+        <div class="masonry-caption"><h4>Sensor Integration Lab</h4><p>YETI Club · 2024</p></div>
+      </div>
+
+      <div class="masonry-item">
+        <div class="masonry-placeholder" style="--ph:300px">
+          <div class="masonry-badge">Robotics</div>
+          <div class="ph-icon">🦾</div>
+          <div>Advanced Robotics</div>
+        </div>
+        <div class="masonry-caption"><h4>Obstacle Avoidance Robot Build</h4><p>YETI Club · 2024</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <span class="section-tag fade-in">🏅 Certifications & Training</span>
+    <h2 class="section-title fade-in stagger-1">Credentials & Development</h2>
+    <p class="section-sub fade-in stagger-2">Professional certifications demonstrating commitment to continuous learning and excellence.</p>
+    <div class="certs-grid">
+
+      <div class="cert-card fade-in">
+        <div class="cert-icon">🏫</div>
+        <div class="cert-name">STEAM Teacher Training</div>
+        <p class="cert-desc">Comprehensive training program covering STEAM pedagogy, curriculum design and hands-on implementation methodologies for diverse learner groups.</p>
+        <span class="cert-badge">✦ Certified</span>
+      </div>
+
+      <div class="cert-card fade-in stagger-1">
+        <div class="cert-icon">🌍</div>
+        <div class="cert-name">STEAM4EVERYONE Training</div>
+        <p class="cert-desc">International STEAM education framework training, focusing on inclusive, accessible STEAM learning for all students regardless of background or ability.</p>
+        <span class="cert-badge">✦ Certified</span>
+      </div>
+
+      <div class="cert-card fade-in stagger-2">
+        <div class="cert-icon">🏭</div>
+        <div class="cert-name">Practical Internship — SAFMMA-SPA</div>
+        <p class="cert-desc">Industry-level practical training and professional internship program providing real-world technical experience in a professional engineering environment.</p>
+        <span class="cert-badge">✦ Completed</span>
+      </div>
+
+      <div class="cert-card fade-in stagger-3">
+        <div class="cert-icon">🎨</div>
+        <div class="cert-name">Adobe Illustrator Training</div>
+        <p class="cert-desc">Professional training in Adobe Illustrator for creating high-quality educational materials, visual aids and graphic design for STEAM curriculum content.</p>
+        <span class="cert-badge">✦ Certified</span>
+      </div>
+
+      <div class="cert-card fade-in stagger-4">
+        <div class="cert-icon">📷</div>
+        <div class="cert-name">Photography & Editing Training</div>
+        <p class="cert-desc">Professional photography and post-processing training, applied to documenting educational activities, creating portfolio content and visual marketing materials.</p>
+        <span class="cert-badge">✦ Certified</span>
+      </div>
+
+      <div class="cert-card fade-in stagger-5">
+        <div class="cert-icon">💼</div>
+        <div class="cert-name">Microsoft Office Training</div>
+        <p class="cert-desc">Advanced Microsoft Office Suite proficiency covering Word, Excel, PowerPoint and other productivity tools essential for professional educational administration.</p>
+        <span class="cert-badge">✦ Certified</span>
+      </div>
+
+      <div class="cert-card add-cert fade-in">
+        <div class="plus">+</div>
+        <div style="font-weight:600;font-size:0.9rem">Add New Certification</div>
+        <div style="font-size:0.78rem;font-family:var(--ff-mono)">Coming Soon</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <span class="section-tag fade-in">💬 Testimonials</span>
+    <h2 class="section-title fade-in stagger-1">What People Say</h2>
+    <p class="section-sub fade-in stagger-2">Feedback from students, parents and colleagues about the impact of STEAM education.</p>
+    <div class="testimonials-grid">
+
+      <div class="testi-card fade-in">
+        <span class="testi-placeholder-note">Placeholder</span>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Manar made programming feel like a game. My child went from zero knowledge to building actual Arduino robots in just a few months. The way she explains things is incredible.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <div class="testi-name">Parent of YETI Club Student</div>
+            <div class="testi-role">Parent · Constantine, Algeria</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card fade-in stagger-1">
+        <span class="testi-placeholder-note">Placeholder</span>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">I used to think electronics was too hard for me. After taking Manar's Arduino class, I built my own smart home project. She has a gift for making the impossible feel achievable.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,var(--accent3),#00a080)">S</div>
+          <div>
+            <div class="testi-name">Student, Age 16</div>
+            <div class="testi-role">YETI Club · Robotics Program</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card fade-in stagger-2">
+        <span class="testi-placeholder-note">Placeholder</span>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Working with Manar at Tidis Tech has been exceptional. She manages training programs with professionalism and brings genuine passion to every session she coordinates.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,var(--accent2),#5040cc)">C</div>
+          <div>
+            <div class="testi-name">Colleague, Training Manager</div>
+            <div class="testi-role">Tidis Tech · Algeria</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <span class="section-tag fade-in">🛠️ Skills</span>
+    <h2 class="section-title fade-in stagger-1">Technical & Professional Skills</h2>
+    <p class="section-sub fade-in stagger-2">A comprehensive toolkit spanning software engineering, education, leadership and design.</p>
+    <div class="skills-grid">
+
+      <div class="skills-category fade-in">
+        <div class="skills-cat-title"><span class="skills-cat-icon">💻</span> Technical Skills</div>
+        <div class="skills-cat-subtitle">Software Engineering</div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Python</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.85"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">HTML & CSS</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.90"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Django</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.75"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Java</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.70"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">C++ / Arduino</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.80"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Git & GitHub</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.78"></div></div></div>
+      </div>
+
+      <div class="skills-category fade-in stagger-1">
+        <div class="skills-cat-title"><span class="skills-cat-icon">🎓</span> Education Skills</div>
+        <div class="skills-cat-subtitle">Pedagogy & Curriculum</div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">STEAM Education</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.95"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Curriculum Design</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.90"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Classroom Management</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.88"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Project-Based Learning</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.92"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Robotics Instruction</span><span class="skill-pct">87%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.87"></div></div></div>
+      </div>
+
+      <div class="skills-category fade-in stagger-2">
+        <div class="skills-cat-title"><span class="skills-cat-icon">🚀</span> Training & Leadership</div>
+        <div class="skills-cat-subtitle">Management & Operations</div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Training Management</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.88"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Program Coordination</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.85"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Team Leadership</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.80"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Communication</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.92"></div></div></div>
+      </div>
+
+      <div class="skills-category fade-in stagger-3">
+        <div class="skills-cat-title"><span class="skills-cat-icon">🎨</span> Design & Marketing</div>
+        <div class="skills-cat-subtitle">Creative & Digital</div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Canva</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.90"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Adobe Illustrator</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.72"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Photoshop</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.70"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Facebook Ads</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.82"></div></div></div>
+        <div class="skill-item"><div class="skill-top"><span class="skill-name">Content Creation</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:0.85"></div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="container">
+    <div class="resume-inner">
+      <span class="section-tag fade-in" style="display:inline-flex;justify-self:center">📄 Resume</span>
+      <h2 class="section-title fade-in stagger-1">Interested in Working Together?</h2>
+      <p class="section-sub fade-in stagger-2">
+        Download my full CV to explore my complete experience, education, projects and certifications. Available for positions in UAE, Qatar, Europe and the United States.
+      </p>
+      <div class="resume-feature-list fade-in stagger-3">
+        <div class="resume-feature"><span class="check">✓</span> Master's in Software Engineering</div>
+        <div class="resume-feature"><span class="check">✓</span> 100+ Students Taught</div>
+        <div class="resume-feature"><span class="check">✓</span> Robotics & Arduino Expert</div>
+        <div class="resume-feature"><span class="check">✓</span> STEAM Certified Educator</div>
+        <div class="resume-feature"><span class="check">✓</span> Training Manager Experience</div>
+        <div class="resume-feature"><span class="check">✓</span> 4 Languages</div>
+      </div>
+      <div class="fade-in stagger-4" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="#" class="btn btn-primary" style="padding:0.85rem 2.5rem;font-size:1rem">
+          ↓ Download CV (PDF)
+        </a>
+        <a href="#contact" class="btn btn-ghost" style="padding:0.85rem 2rem;font-size:1rem">
+          Contact Me →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-tag fade-in">✉ Contact</span>
+    <h2 class="section-title fade-in stagger-1">Let's Build Something</h2>
+    <p class="section-sub fade-in stagger-2">Open to international roles in STEAM education, training management, EdTech and curriculum design. Let's connect.</p>
+    <div class="contact-grid" style="margin-top:3rem">
+      <div>
+        <div class="contact-info-title fade-in">Get in Touch</div>
+        <div class="contact-links">
+          <a href="mailto:manarfermas17@gmail.com" class="contact-link fade-in">
+            <div class="contact-link-icon">✉</div>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value">manarfermas17@gmail.com</div>
+            </div>
+          </a>
+          <a href="tel:+213658902586" class="contact-link fade-in stagger-1">
+            <div class="contact-link-icon">📱</div>
+            <div>
+              <div class="contact-link-label">Phone</div>
+              <div class="contact-link-value">+213 658 902 586</div>
+            </div>
+          </a>
+          <div class="contact-link fade-in stagger-2" style="cursor:default">
+            <div class="contact-link-icon">📍</div>
+            <div>
+              <div class="contact-link-label">Location</div>
+              <div class="contact-link-value">Constantine, Algeria</div>
+            </div>
+          </div>
+          <a href="https://linkedin.com" class="contact-link fade-in stagger-3">
+            <div class="contact-link-icon">in</div>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-value">Connect on LinkedIn →</div>
+            </div>
+          </a>
+          <a href="https://github.com" class="contact-link fade-in stagger-4">
+            <div class="contact-link-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-value">View my repositories →</div>
+            </div>
+          </a>
+        </div>
+        <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem">
+          <div style="font-size:0.78rem;font-family:var(--ff-mono);color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem">Open to opportunities in</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+            <span style="font-size:0.78rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:6px;background:var(--accent)15;color:var(--accent)">🇦🇪 UAE</span>
+            <span style="font-size:0.78rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:6px;background:var(--accent2)15;color:var(--accent2)">🇶🇦 Qatar</span>
+            <span style="font-size:0.78rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:6px;background:var(--accent3)15;color:var(--accent3)">🇪🇺 Europe</span>
+            <span style="font-size:0.78rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:6px;background:var(--gold)15;color:var(--gold)">🇺🇸 United States</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form fade-in stagger-1">
+        <h3>Send a Message</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" placeholder="Your full name"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="your@email.com"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-input" placeholder="Teaching opportunity / Collaboration / Other"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about the opportunity or how I can help..."></textarea>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:0.9rem;font-size:0.95rem" onclick="handleSubmit(this)">
+          Send Message ↗
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Manar Fermas</div>
+    <div class="footer-copy">© 2024 Manar Fermas · STEAM Educator, Software Engineer & Training Manager</div>
+    <div class="footer-socials">
+      <a href="https://linkedin.com" class="social-btn" title="LinkedIn">in</a>
+      <a href="https://github.com" class="social-btn" title="GitHub">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+      <a href="mailto:manarfermas17@gmail.com" class="social-btn">✉</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===================== THEME TOGGLE =====================
+const html = document.documentElement;
+const themeBtn = document.getElementById('theme-toggle');
+const saved = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', saved);
+themeBtn.textContent = saved === 'dark' ? '☀' : '☾';
+themeBtn.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  themeBtn.textContent = next === 'dark' ? '☀' : '☾';
+});
+
+// ===================== MOBILE NAV =====================
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobile-nav').classList.toggle('open');
+});
+document.querySelectorAll('.mobile-nav a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('mobile-nav').classList.remove('open'));
+});
+
+// ===================== INTERSECTION OBSERVER =====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // Skill bar animation
+      e.target.querySelectorAll('.skill-fill').forEach(bar => bar.classList.add('animated'));
+    }
+  });
+}, {threshold: 0.12});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Also observe skill sections directly
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach((bar, i) => {
+        setTimeout(() => bar.classList.add('animated'), i * 80);
+      });
+    }
+  });
+}, {threshold: 0.2});
+document.querySelectorAll('.skills-category').forEach(el => skillObserver.observe(el));
+
+// ===================== COUNTERS =====================
+function animateCounter(el, target, suffix = '') {
+  let start = 0;
+  const duration = 1800;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) {
+      start = target;
+      clearInterval(timer);
+    }
+    el.textContent = Math.floor(start) + suffix;
+  }, 16);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        animateCounter(el, target, target >= 100 ? '+' : target >= 10 ? '+' : '+');
+      });
+      e.target.querySelectorAll('.hero-stat-num[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        animateCounter(el, target, target >= 100 ? '+' : '+');
+      });
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.3});
+document.querySelectorAll('#impact, #hero').forEach(el => counterObserver.observe(el));
+
+// ===================== GALLERY TABS =====================
+document.querySelectorAll('.gallery-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    // In real implementation, filter masonry items by category
+  });
+});
+
+// ===================== SKILL BAR WIDTHS =====================
+document.querySelectorAll('.skill-fill').forEach(bar => {
+  const w = parseFloat(getComputedStyle(bar).getPropertyValue('--w') || bar.style.getPropertyValue('--w'));
+  if (w) bar.style.setProperty('--target-w', w);
+});
+// Override animated class to use actual width
+const style = document.createElement('style');
+style.textContent = `
+  .skill-fill.animated { transform: scaleX(var(--w, 1)) !important; }
+`;
+document.head.appendChild(style);
+
+// ===================== CONTACT FORM =====================
+function handleSubmit(btn) {
+  btn.textContent = 'Message Sent! ✓';
+  btn.style.background = 'var(--accent3)';
+  btn.style.color = '#000';
+  setTimeout(() => {
+    btn.textContent = 'Send Message ↗';
+    btn.style.background = '';
+    btn.style.color = '';
+  }, 3000);
+}
+
+// ===================== NAV ACTIVE STATE =====================
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : '';
+    a.style.background = a.getAttribute('href') === '#' + current ? 'var(--surface)' : '';
+  });
+}, {passive: true});
+</script>
+</body>
+</html>
